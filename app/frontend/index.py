@@ -5,6 +5,11 @@ import plotly.offline as py
 import plotly.graph_objects as go
 import pandas as pd
 import matplotlib.pyplot as plt 
+
+# create variable of root_url and store value in .env for frontend, and settings.py for front end
+
+# move code that doesn't begin with st to a separate file.
+
 API_URL = "http://127.0.0.1:5000/incidents"
 API_URL_AGENCIES = "http://127.0.0.1:5000/agencies"
 API_URL_COMPLAINTS = "http://127.0.0.1:5000/complaints"
@@ -24,8 +29,6 @@ def get_complaints():
     return response.json()
 
 
-st.header('Incidents')
-st.write('Here are locations of NYC 311 Service Requests')
 
 def incident_locations(incidents):
     return [location['location'] for location in incidents]
@@ -36,16 +39,6 @@ def get_lat_long(location):
 
 def get_lat_longs(locations):
     return [get_lat_long(location) for location in locations]
-
-
-incidents = get_incidents()
-coordinates = get_lat_longs(incidents)
-
-#this is my map of incidents
-df = pd.DataFrame(coordinates, columns=['latitude', 'longitude'])
-st.map(df)
-
-
 
 def get_borough_names(incident_details):
     return [borough['borough'] for borough in incident_details]
@@ -59,6 +52,18 @@ def get_agency_names(incident_detailss):
 def get_type_of_complaints(incident_details):
     return [complaint['complaint_type'] for complaint in incident_details]
 
+st.header('Incidents')
+st.write('Here are locations of NYC 311 Service Requests')
+incidents = get_incidents()
+coordinates = get_lat_longs(incidents)
+
+#this is my map of incidents
+df = pd.DataFrame(coordinates, columns=['latitude', 'longitude'])
+st.map(df)
+
+
+
+
 agency_data = go.Bar({'x': get_agency_names(incidents),
                  'y': get_agency_complaint_counts(agency)}, name= 'Incidents by Agency')
 agency_layout = go.Layout(title = 'Most Utilized Agencies')
@@ -67,18 +72,3 @@ go.plot(fig)
 
  
 
-# data = [go.Bar(x = get_agency_names.index, y = agency_name.values, name = 'Most Utilized Agency')]
-# layout = go.Layout(title = 'Most Utilized Agency')
-# fig = go.Figure(data = data, layout = layout)
-# go.plot(fig)
-
-# scatter = go.Scatter(x = venue_names(venues, True), 
-#         y = venue_ratings(venues, True), 
-#         hovertext = venue_names(venues, True), mode = 'markers')
-
-# locations = venue_locations(venues)
-
-
-# fig = go.Figure(scatter)
-# st.plotly_chart(fig)
-# st.map(pd.DataFrame(locations))

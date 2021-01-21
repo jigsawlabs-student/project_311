@@ -21,7 +21,7 @@ class Incident:
         cursor.execute(open_data_id_query, ('open_data_id',))
         record =  cursor.fetchone()
         return db.build_from_record(models.Incident, record)
-
+    # function not used anywhere
     def total_incidents(self, cursor):
         incident_query = """SELECT COUNT(*) FROM incidents 
         WHERE complaint.id = complaint_id"""

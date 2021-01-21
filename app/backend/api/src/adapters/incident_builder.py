@@ -49,6 +49,9 @@ class LocationBuilder:
         borough = incident_details['borough']
         latitude = incident_details['latitude']
         longitude = incident_details['longitude']
+        # for this, may be able to refactor as 
+        # {k:v for select_attributes.items() if k in self.attributes}
+        # maybe not
         return dict(zip(self.attributes, [setting, zip_code, incident_address,
         city, borough, latitude, longitude]))
 
@@ -70,8 +73,12 @@ class ComplaintBuilder:
 
     def find_or_create_complaint_types(self, incident_details, conn, cursor):
         type_of_complaints =[]
+            # probably should move this db.total_by_complaint_type function to the complaint class, as a class method
+        # yuh oh, where is complaint_type defined?
+        # also not sure that should be calculating these aggregate functions here (total_by_complaint_type), and then storing in db.  
+        # talk to me about this.
         for complaint_type in incident_details:
-            named_complaint = db.total_by_complaint_type(models.Complaint, conn, cursor
+            named_complaint = db.total_by_complaint_type(models.Complaint, conn, cursor)
             type_of_complaints.append(named_complaint)
         return type_of_complaints
         

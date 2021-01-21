@@ -14,6 +14,7 @@ class Location:
             setattr(self, k, v)
 
 
+    # doesn't look like these functions are used anywhere
     def total_by_borough(self, cursor):
         borough_query = """SELECT borough, COUNT(*) FROM locations 
         JOIN incidents ON locations.id = incidents.location_id

@@ -3,11 +3,13 @@ import api.src.db as db
 import api.src.adapters as adapters
 import psycopg2
 
+# remove comments from this file
 #run Client and Builder (from incident_builder) to retrieve and configure data
 class RequestAndBuild:
     def __init__(self):
         self.client = adapters.Client()
         self.builder = adapters.Builder()
+        # read these values of database, and user from settings.py, which reads from .env
         self.conn = psycopg2.connect(database = 'three_one_one_development', 
                 user = 'robertsawyer')
         self.cursor = self.conn.cursor()

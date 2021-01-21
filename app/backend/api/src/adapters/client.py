@@ -14,7 +14,7 @@ class Client:
         response = requests.get(url)
         return response.json()
 
-
+# remove this json, at least move to different file
 two_incidents_json = [{'unique_key': '42033602',
   'created_date': '2019-03-24T00:00:00.000',
   'closed_date': '2019-03-27T00:00:00.000',

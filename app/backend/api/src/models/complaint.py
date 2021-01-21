@@ -43,6 +43,7 @@ class Complaint:
 
     #calculates total complaints handled by each agency
     def total_complaints_by_agency(self, cursor):
+
         agency_query = """SELECT agency_name, COUNT(*) FROM complaints 
         JOIN incidents ON complaints.id = incidents.complaint_id 
         GROUP BY agency_name"""
@@ -51,6 +52,7 @@ class Complaint:
         return record
 
     #calculates total by complaint type, example: NYPD -> will return {'name': 'NYPD', 'complaint_total': 500}
+    # yuh oh, don't think this works.  Where is agency_name used?
     @classmethod
     def complaint_type_total_by_agency(agency_name):
         complaint_total_query = """SELECT complaint_type, COUNT(*) FROM complaints
